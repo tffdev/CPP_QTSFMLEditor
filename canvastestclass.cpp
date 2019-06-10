@@ -1,5 +1,6 @@
 #include "canvastestclass.h"
 
+
 void CanvasTestClass::Init() {
     tex.loadFromFile("resources/test.png");
     texture_background.loadFromFile("resources/bg.png");
@@ -17,6 +18,7 @@ void CanvasTestClass::Init() {
 void CanvasTestClass::Update() {
     /* Get mouse position */
     QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
+
 
     /*
      * Event loop that handles input when the mouse is over the SFML widget.
@@ -44,6 +46,7 @@ void CanvasTestClass::Update() {
         } else if(event.type == sf::Event::MouseButtonReleased) {
             if(event.mouseButton.button == sf::Mouse::Button::Left) {
                 dragging_room = false;
+
                 sf::Cursor cursor;
                 cursor.loadFromSystem(sf::Cursor::Arrow);
                 window.setMouseCursor(cursor);

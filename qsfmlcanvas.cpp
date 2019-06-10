@@ -19,12 +19,12 @@ QSFMLCanvas::QSFMLCanvas(QWidget* parent) : QWidget(parent) {
 }
 
 void QSFMLCanvas::resizeEvent(QResizeEvent*) {
-    window.create(reinterpret_cast<sf::WindowHandle>(winId()));
+    window.create(winId());
     OnResize(reinterpret_cast<int>(QWidget::width()), reinterpret_cast<int>(QWidget::height()));
 }
 
 void QSFMLCanvas::showEvent(QShowEvent*) {
-    window.create(reinterpret_cast<sf::WindowHandle>(winId()));
+    window.create(winId());
     window.clear(sf::Color(0, 0, 0, 255));
     Init();
     connect(&frameTimer, SIGNAL(timeout()), this, SLOT(repaint()));
