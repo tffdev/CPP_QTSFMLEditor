@@ -6,7 +6,6 @@ void TilePlacementEditor::Init() {
 
     if(!texture_background.loadFromFile("./resources/bg.png"))
         printf("cant load ./resources/bg.png\n");
-
     texture_background.setRepeated(true);
     sprite_background.setTexture(texture_background);
     sprite_background.setTextureRect(sf::IntRect(0,0,QWidget::width(), QWidget::height()));
@@ -21,6 +20,7 @@ void TilePlacementEditor::Init() {
 void TilePlacementEditor::Update() {
     /* Get mouse position */
     QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
+
 
     /*
      * Event loop that handles input when the mouse is over the SFML widget.
@@ -48,6 +48,7 @@ void TilePlacementEditor::Update() {
         } else if(event.type == sf::Event::MouseButtonReleased) {
             if(event.mouseButton.button == sf::Mouse::Button::Left) {
                 dragging_room = false;
+
                 sf::Cursor cursor;
                 cursor.loadFromSystem(sf::Cursor::Arrow);
                 window.setMouseCursor(cursor);
