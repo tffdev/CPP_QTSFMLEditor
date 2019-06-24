@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>803</width>
-    <height>620</height>
+    <width>946</width>
+    <height>648</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <height>43</height>
        </size>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
        <property name="spacing">
         <number>4</number>
        </property>
@@ -58,6 +58,16 @@
          </property>
          <property name="text">
           <string>Confirm</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_2">
+         <property name="text">
+          <string>Show Grid</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -122,7 +132,7 @@
                  <height>100</height>
                 </size>
                </property>
-               <widget class="QWidget" name="">
+               <widget class="QWidget" name="layoutWidget">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
@@ -138,10 +148,17 @@
                  <property name="spacing">
                   <number>6</number>
                  </property>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_5">
+                 <item row="3" column="1">
+                  <widget class="QPushButton" name="pushButton_5">
                    <property name="text">
-                    <string>Tileset</string>
+                    <string>- Delete Layer</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>Layer</string>
                    </property>
                   </widget>
                  </item>
@@ -154,17 +171,17 @@
                    </item>
                   </widget>
                  </item>
-                 <item row="3" column="1">
-                  <widget class="QPushButton" name="pushButton_5">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_5">
                    <property name="text">
-                    <string>- Delete Layer</string>
+                    <string>Tileset</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_6">
+                 <item row="3" column="0">
+                  <widget class="QPushButton" name="pushButton_4">
                    <property name="text">
-                    <string>Layer</string>
+                    <string>+ New Layer</string>
                    </property>
                   </widget>
                  </item>
@@ -190,13 +207,6 @@
                    </item>
                   </widget>
                  </item>
-                 <item row="3" column="0">
-                  <widget class="QPushButton" name="pushButton_4">
-                   <property name="text">
-                    <string>+ New Layer</string>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
                </widget>
               </widget>
@@ -219,15 +229,15 @@
                 <property name="spacing">
                  <number>0</number>
                 </property>
-                <item row="0" column="1">
-                 <widget class="QScrollBar" name="tabTilesPickerScrollv">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
+                <item row="1" column="1">
+                 <widget class="QWidget" name="tabTilesPickerScrollStopper" native="true">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(223, 223, 223)</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="0">
-                 <widget class="QWidget" name="tabTilesPickerCanvas" native="true">
+                 <widget class="TilePicker" name="tabTilesPickerCanvas" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -252,10 +262,10 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QWidget" name="tabTilesPickerScrollStopper" native="true">
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(223, 223, 223)</string>
+                <item row="0" column="1">
+                 <widget class="QScrollBar" name="tabTilesPickerScrollv">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
                   </property>
                  </widget>
                 </item>
@@ -436,7 +446,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="CanvasTestClass" name="roomEditorCanvas" native="true">
+         <widget class="TilePlacementEditor" name="roomEditorCanvas" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -468,9 +478,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>CanvasTestClass</class>
+   <class>TilePlacementEditor</class>
    <extends>QWidget</extends>
-   <header>canvastestclass.h</header>
+   <header>tileplacementeditor.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TilePicker</class>
+   <extends>QWidget</extends>
+   <header>tilepicker.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -23,17 +23,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
-
+`
 SOURCES += \
-        canvastestclass.cpp \
         main.cpp \
         mainwindow.cpp \
-        qsfmlcanvas.cpp
+        qsfmlcanvas.cpp \
+        tilepicker.cpp \
+        tileplacementeditor.cpp
 
 HEADERS += \
-        canvastestclass.h \
         mainwindow.h \
-        qsfmlcanvas.h
+        qsfmlcanvas.h \
+        tilepicker.h \
+        tileplacementeditor.h
 
 FORMS += \
         mainwindow.ui

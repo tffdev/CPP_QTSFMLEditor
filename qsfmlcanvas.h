@@ -26,6 +26,7 @@ private:
     void resizeEvent(QResizeEvent* event);
     void paintEvent(QPaintEvent*);
     void showEvent(QShowEvent*);
+    void createWindow();
     QPaintEngine* paintEngine() const;
 
     QTimer frameTimer;

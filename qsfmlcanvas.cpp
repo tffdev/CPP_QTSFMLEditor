@@ -13,19 +13,23 @@ QSFMLCanvas::QSFMLCanvas(QWidget* parent) : QWidget(parent) {
     setAttribute(Qt::WA_OpaquePaintEvent);
     setAttribute(Qt::WA_NoSystemBackground);
     setFocusPolicy(Qt::StrongFocus);
-
     /* frameTimer will send signal timeout() every 60th of a second, connect to "repaint" */
     frameTimer.setInterval(MS_PER_FRAME);
+    window.setActive(false);
 }
 
 void QSFMLCanvas::resizeEvent(QResizeEvent*) {
-    window.create(reinterpret_cast<sf::WindowHandle>(winId()));
+    createWindow();
     OnResize(reinterpret_cast<int>(QWidget::width()), reinterpret_cast<int>(QWidget::height()));
 }
 
-void QSFMLCanvas::showEvent(QShowEvent*) {
+void QSFMLCanvas::createWindow() {
+    window.setActive(false);
+    printf("Creating SFML window with ID %i\n", winId());
     window.create(reinterpret_cast<sf::WindowHandle>(winId()));
-    window.clear(sf::Color(0, 0, 0, 255));
+}
+
+void QSFMLCanvas::showEvent(QShowEvent*) {
     Init();
     connect(&frameTimer, SIGNAL(timeout()), this, SLOT(repaint()));
     frameTimer.start();

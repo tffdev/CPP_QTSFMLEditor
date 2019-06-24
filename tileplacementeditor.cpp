@@ -1,8 +1,12 @@
-#include "canvastestclass.h"
+#include "tileplacementeditor.h"
 
-void CanvasTestClass::Init() {
-    tex.loadFromFile("resources/test.png");
-    texture_background.loadFromFile("resources/bg.png");
+void TilePlacementEditor::Init() {
+    if(!tex.loadFromFile("./resources/test.png"))
+        printf("cant load ./resources/test.png\n");
+
+    if(!texture_background.loadFromFile("./resources/bg.png"))
+        printf("cant load ./resources/bg.png\n");
+
     texture_background.setRepeated(true);
     sprite_background.setTexture(texture_background);
     sprite_background.setTextureRect(sf::IntRect(0,0,QWidget::width(), QWidget::height()));
@@ -14,7 +18,7 @@ void CanvasTestClass::Init() {
     camera_position.y = 0;
 }
 
-void CanvasTestClass::Update() {
+void TilePlacementEditor::Update() {
     /* Get mouse position */
     QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
 
@@ -72,24 +76,31 @@ void CanvasTestClass::Update() {
 
     /* Draw all tiles */
 
+
     /* Draw tile grid */
-    for (int i = 0; i < room_size.y; i += 16) {
-        sf::RectangleShape line(sf::Vector2f(room_size.x*camera_scale, 1));
-        line.setFillColor(sf::Color(145,145,145));
-        line.setPosition(camera_position.x, camera_position.y + i*camera_scale);
-        window.draw(line);
-    }
-    for (int i = 0; i < room_size.x; i += 16) {
-        sf::RectangleShape line(sf::Vector2f(1, room_size.y*camera_scale));
-        line.setFillColor(sf::Color(145,145,145));
-        line.setPosition(camera_position.x + i*camera_scale, camera_position.y);
-        window.draw(line);
+    if(grid_shown) {
+        for (int i = 0; i < room_size.y; i += 16) {
+            sf::RectangleShape line(sf::Vector2f(room_size.x*camera_scale, 1));
+            line.setFillColor(sf::Color(145,145,145));
+            line.setPosition(camera_position.x, camera_position.y + i*camera_scale);
+            window.draw(line);
+        }
+        for (int i = 0; i < room_size.x; i += 16) {
+            sf::RectangleShape line(sf::Vector2f(1, room_size.y*camera_scale));
+            line.setFillColor(sf::Color(145,145,145));
+            line.setPosition(camera_position.x + i*camera_scale, camera_position.y);
+            window.draw(line);
+        }
     }
 
     /* Present room to user */
     window.display();
 }
 
-void CanvasTestClass::OnResize(int, int) {
+void TilePlacementEditor::OnResize(int, int) {
     sprite_background.setTextureRect(sf::IntRect(0,0,QWidget::width(), QWidget::height()));
+}
+
+void TilePlacementEditor::setGridShown(bool state) {
+    grid_shown = state;
 }

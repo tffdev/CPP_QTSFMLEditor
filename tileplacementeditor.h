@@ -10,15 +10,17 @@ typedef struct {
     sf::Sprite sprite;
 } Tile;
 
-class CanvasTestClass : public QSFMLCanvas
+class TilePlacementEditor : public QSFMLCanvas
 {
 public:
-    CanvasTestClass(QWidget* parent) : QSFMLCanvas(parent) {}
+    TilePlacementEditor(QWidget* parent) : QSFMLCanvas(parent) {}
+    void setGridShown(bool state);
 
 private:
     void Init();
     void Update();
     void OnResize(int w, int h);
+
 
     sf::Texture tex;
     sf::Texture texture_background;
@@ -31,6 +33,7 @@ private:
     bool dragging_room = false;
     sf::Vector2i drag_mouse_position_buffer;
     std::vector<Tile> tiles;
+    bool grid_shown = true;
 };
 
 #endif // QSFMLCANVASTEST_H
