@@ -1,4 +1,5 @@
 #include "tilepicker.h"
+#include <QMouseEvent>
 
 void TilePicker::Init() {
     // Load tileset, for now we'll hardcode the values until we get it all working
@@ -10,17 +11,8 @@ void TilePicker::Update() {
     /* Get mouse position */
     QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
 
-    /* On mouse down, start tile area selection, and vice versa */
-    sf::Event event;
-    while(window.pollEvent(event)) {
-        if(event.type == sf::Event::MouseButtonPressed) {
-            is_selecting_tile_area = true;
-            tile_selection_position_buffer = {mouse.x(), mouse.y()};
-        } else if(event.type == sf::Event::MouseButtonReleased) {
-            is_selecting_tile_area = false;
-        }
-    }
 
+    /* Highlight tile area */
     if(is_selecting_tile_area) {
         tile_selection_area.left    = reinterpret_cast<int>(tile_selection_position_buffer.x()/16)*16;
         tile_selection_area.top     = reinterpret_cast<int>(tile_selection_position_buffer.y()/16)*16;
@@ -60,6 +52,19 @@ void TilePicker::Update() {
     window.display();
 }
 
-void TilePicker::OnResize(int, int) {
-
+void TilePicker::mousePressEvent(QMouseEvent *event){
+    /* On mouse down, start tile area selection, and vice versa */
+    if(event->button() == Qt::LeftButton) {
+        QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
+        is_selecting_tile_area = true;
+        tile_selection_position_buffer = {mouse.x(), mouse.y()};
+    }
 }
+
+void TilePicker::mouseReleaseEvent(QMouseEvent *event){
+    if(event->button() == Qt::LeftButton) {
+        is_selecting_tile_area = false;
+    }
+}
+
+void TilePicker::OnResize(int, int) {}

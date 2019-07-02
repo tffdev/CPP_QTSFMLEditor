@@ -26,7 +26,7 @@ void QSFMLCanvas::resizeEvent(QResizeEvent*) {
 void QSFMLCanvas::createWindow() {
     window.setActive(false);
     printf("Creating SFML window with ID %i\n", winId());
-    window.create(reinterpret_cast<sf::WindowHandle>(winId()));
+    window.create((winId()));
 }
 
 void QSFMLCanvas::showEvent(QShowEvent*) {

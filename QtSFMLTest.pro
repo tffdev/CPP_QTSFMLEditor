@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
         qsfmlcanvas.cpp \
         tilepicker.cpp \
-        tileplacementeditor.cpp
+        tileplacementeditor.cpp \
+    keyboardinput.cpp
 
 HEADERS += \
         mainwindow.h \
         qsfmlcanvas.h \
         tilepicker.h \
-        tileplacementeditor.h
+        tileplacementeditor.h \
+    keyboardinput.h
 
 FORMS += \
         mainwindow.ui

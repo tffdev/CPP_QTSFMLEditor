@@ -3,6 +3,7 @@
 
 #include "qsfmlcanvas.h"
 #include <vector>
+#include <QWheelEvent>
 
 typedef struct {
     int x, y;
@@ -15,7 +16,10 @@ class TilePlacementEditor : public QSFMLCanvas
 public:
     TilePlacementEditor(QWidget* parent) : QSFMLCanvas(parent) {}
     void setGridShown(bool state);
-
+protected:
+    void wheelEvent(QWheelEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 private:
     void Init();
     void Update();

@@ -5,7 +5,7 @@
 #include <SFML/Main.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Window/Cursor.hpp>
+//#include <SFML/Window/Cursor.hpp>
 
 #define FRAME_RATE 60
 #define MS_PER_FRAME 1000/FRAME_RATE

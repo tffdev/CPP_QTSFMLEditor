@@ -7,6 +7,9 @@ class TilePicker : public QSFMLCanvas
 {
 public:
     TilePicker(QWidget* parent) : QSFMLCanvas(parent) {}
+protected:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 private:
     void Init();
     void Update();

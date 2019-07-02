@@ -1,9 +1,9 @@
 #include "tileplacementeditor.h"
+#include <QMouseEvent>
+#include "keyboardinput.h"
+#define SCROLL_THRESHOLD 40
 
 void TilePlacementEditor::Init() {
-    if(!tex.loadFromFile("./resources/test.png"))
-        printf("cant load ./resources/test.png\n");
-
     if(!texture_background.loadFromFile("./resources/bg.png"))
         printf("cant load ./resources/bg.png\n");
     texture_background.setRepeated(true);
@@ -21,41 +21,7 @@ void TilePlacementEditor::Update() {
     /* Get mouse position */
     QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
 
-
-    /*
-     * Event loop that handles input when the mouse is over the SFML widget.
-     * Scales the room size up or down depending on mouse scroll input.
-     *
-     * TODO: Let scroll zooming origin be mouse position, not top left of room boundaries.
-     */
-    sf::Event event;
-    while(window.pollEvent(event)) {
-        if(event.type == sf::Event::MouseWheelMoved) {
-            if(event.mouseWheel.delta == -1) camera_scale = camera_scale*0.9f - 0.01f;
-            if(event.mouseWheel.delta == 1)  camera_scale = camera_scale*1.1f + 0.01f;
-            if(camera_scale < 0.01f) camera_scale = 0.01f;
-        } else if(event.type == sf::Event::MouseButtonPressed) {
-            if(event.mouseButton.button == sf::Mouse::Button::Left && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-                dragging_room = true;
-
-                sf::Cursor cursor;
-                cursor.loadFromSystem(sf::Cursor::Hand);
-                window.setMouseCursor(cursor);
-
-                drag_mouse_position_buffer.x = mouse.x();
-                drag_mouse_position_buffer.y = mouse.y();
-            }
-        } else if(event.type == sf::Event::MouseButtonReleased) {
-            if(event.mouseButton.button == sf::Mouse::Button::Left) {
-                dragging_room = false;
-
-                sf::Cursor cursor;
-                cursor.loadFromSystem(sf::Cursor::Arrow);
-                window.setMouseCursor(cursor);
-            }
-        }
-    }
-
+    /* Move room around */
     if(dragging_room) {
         camera_position.x += mouse.x() - drag_mouse_position_buffer.x;
         camera_position.y += mouse.y() - drag_mouse_position_buffer.y;
@@ -104,4 +70,30 @@ void TilePlacementEditor::OnResize(int, int) {
 
 void TilePlacementEditor::setGridShown(bool state) {
     grid_shown = state;
+}
+
+void TilePlacementEditor::mousePressEvent(QMouseEvent *event) {
+    if(event->button() == Qt::LeftButton && KeyboardInput::keyIsPressed(Qt::Key_Space)) {
+        dragging_room = true;
+        QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
+        drag_mouse_position_buffer.x = mouse.x();
+        drag_mouse_position_buffer.y = mouse.y();
+    }
+}
+
+void TilePlacementEditor::mouseReleaseEvent(QMouseEvent *event) {
+    if(event->button() == Qt::LeftButton) {
+        dragging_room = false;
+    }
+}
+
+/*
+ * Scales the room size up or down depending on mouse scroll input.
+ * TODO: Let scroll zooming origin be mouse position, not top left of room boundaries.
+ */
+void TilePlacementEditor::wheelEvent(QWheelEvent *event) {
+    QPoint angle = event->angleDelta();
+    if(angle.y() > SCROLL_THRESHOLD) camera_scale = camera_scale * 0.9f - 0.01f;
+    if(angle.y() < -SCROLL_THRESHOLD) camera_scale = camera_scale * 1.1f + 0.01f;
+    if(camera_scale < 0.01f) camera_scale = 0.01f;
 }
