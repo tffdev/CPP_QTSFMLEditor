@@ -1,16 +1,13 @@
 #include "tilepicker.h"
 #include <QMouseEvent>
+#include "mainroomeditor.h"
 
 void TilePicker::Init() {
-    // Load tileset, for now we'll hardcode the values until we get it all working
-    loaded_tileset.loadFromFile("./resources/Tileset.png");
-    loaded_tileset_sprite.setTexture(loaded_tileset);
 }
 
 void TilePicker::Update() {
     /* Get mouse position */
     QPoint mouse = QWidget::mapFromGlobal(QCursor::pos());
-
 
     /* Highlight tile area */
     if(is_selecting_tile_area) {
@@ -20,7 +17,7 @@ void TilePicker::Update() {
         tile_selection_area.height  = reinterpret_cast<int>(mouse.y()/16)*16 - tile_selection_area.top + 16;
     }
 
-
+    *parent_rect_ref = tile_selection_area;
 
     /* Draw background */
     window.clear(sf::Color(0,0,0,255));
@@ -50,6 +47,14 @@ void TilePicker::Update() {
     window.draw(selection_rect);
 
     window.display();
+}
+
+void TilePicker::setLoadedTilesetSprite(sf::Sprite spr) {
+    loaded_tileset_sprite = spr;
+}
+
+void TilePicker::setRectReference(sf::IntRect* rect_ref) {
+    parent_rect_ref = rect_ref;
 }
 
 void TilePicker::mousePressEvent(QMouseEvent *event){

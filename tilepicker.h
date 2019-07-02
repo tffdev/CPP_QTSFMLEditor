@@ -7,6 +7,8 @@ class TilePicker : public QSFMLCanvas
 {
 public:
     TilePicker(QWidget* parent) : QSFMLCanvas(parent) {}
+    void setLoadedTilesetSprite(sf::Sprite spr);
+    void setRectReference(sf::IntRect* rect_ref);
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
@@ -15,9 +17,9 @@ private:
     void Update();
     void OnResize(int w, int h);
 
-    sf::Texture loaded_tileset;
     sf::Sprite loaded_tileset_sprite;
     sf::Vector2i tile_size = {16, 16};
+    sf::IntRect* parent_rect_ref;
 
     // tile area selection
     sf::Rect<int> tile_selection_area = {0, 0, 0, 0};

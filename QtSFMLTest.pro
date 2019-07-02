@@ -26,18 +26,18 @@ CONFIG += c++11
 `
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
         qsfmlcanvas.cpp \
         tilepicker.cpp \
         tileplacementeditor.cpp \
-    keyboardinput.cpp
+    keyboardinput.cpp \
+    mainroomeditor.cpp
 
 HEADERS += \
-        mainwindow.h \
         qsfmlcanvas.h \
         tilepicker.h \
         tileplacementeditor.h \
-    keyboardinput.h
+    keyboardinput.h \
+    mainroomeditor.h
 
 FORMS += \
         mainwindow.ui

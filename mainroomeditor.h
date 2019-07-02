@@ -4,18 +4,19 @@
 #include <QMainWindow>
 #include <QRegExpValidator>
 #include <QRegExp>
+#include <SFML/Graphics.hpp>
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MainRoomEditor : public QMainWindow
 {
     Q_OBJECT
-
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit MainRoomEditor(QWidget *parent = nullptr);
+    ~MainRoomEditor();
+
 protected:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
@@ -25,6 +26,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    sf::Texture loaded_tileset_texture;
+    sf::Sprite loaded_tileset_sprite;
+    sf::IntRect tile_selection_area;
 };
 
 #endif // MAINWINDOW_H
